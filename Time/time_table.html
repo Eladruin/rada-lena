@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hello World!!!</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="styles/style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+
+<style type="text/css">
+table{
+	border-collapse: collapse;
+}
+.week{
+	margin: 5px 2px 0px 2px;
+	border: 1px solid #11f;
+	width: 5px;
+	height: 5px;
+	float: left;
+	}
+.week_live{
+	background-color: #666;
+	margin: 5px 2px 0px 2px;
+	border: 1px solid #11f;
+	width: 5px;
+	height: 5px;
+	float: left;
+	}
+#result1, #result2{
+	width: 960px;
+	margin: 0 auto;
+	color: #666;
+	}
+	
+.tip1{
+	background-color: #999;
+	position:relative;
+	top: -25px;
+	border: 1px solid #00f;
+	color: white;
+	padding: 0px 6px;
+	font-weight: bold;
+	}
+</style>
+<script type="text/javascript">
+	
+	function func1(){		
+		var text = document.getElementById("text1").value;
+		var date_ok = false; 
+		if(text.match(/^[0-3][0-9]\.(0|1)[0-9]\.[1-2](0|9)[0-9]{2}$/)) {
+			//alert("Сработало - "+ text);	
+			var date = text.substr(0,2);
+			var month = text.substr(3,2);
+			var year = text.substr(6,4);
+			var sec = 0;
+			var min = 3;
+			var hour = 15;
+			if( !(year.match(/^1(0|9)/)|| year.match(/^200[0-9]/)|| year.match(/^201[0-4]/))) {
+				alert("год неправильный!");		
+			} else date_ok = true;
+			
+		}
+		else alert("Некорректная дата.");
+		if(date_ok){
+		
+			date = Number(date);
+			month = Number(month);
+			year = Number(year);
+			
+			dat = new Date();
+			
+			t_sec = dat.valueOf()
+			var dat2 = new Date(year, (month-1), date, hour, min, sec);
+			sec = dat2.valueOf()			
+			var r = document.getElementById("result1");
+	
+			sec = t_sec - sec;
+			//r.innerHTML += "<br />Продолжтительность жизни в секундах:   " + Math.ceil(sec/1000);
+			//r.innerHTML += "<br />Продолжтительность жизни в минутах:   " + Math.ceil(((sec/1000)/60));
+			r.innerHTML = "<br />Продолжтительность жизни в часах: " + Math.ceil(((sec/1000)/3600));
+			r.innerHTML += "<br />Продолжтительность жизни в днях: " + Math.floor(((sec/1000)/3600)/24);
+			r.innerHTML += "<br />Продолжтительность жизни в месяцах: " + Math.floor((((sec/1000)/3600)/24)/12);
+			r.innerHTML += "<br />Продолжтительность жизни в годах: " + Math.floor((((sec/1000)/3600)/24)/365);
+		}
+	}	
+	
+	function func2(){
+		func1();
+		var text = document.getElementById("text1").value;
+		var date_ok = false; 
+		if(text.match(/^[0-3][0-9]\.(0|1)[0-9]\.[1-2](0|9)[0-9]{2}$/)) {
+			//alert("Сработало - "+ text);	
+			var date = text.substr(0,2);
+			var month = text.substr(3,2);
+			var year = text.substr(6,4);
+			var sec = 0;
+			var min = 3;
+			var hour = 15;
+			if( !(year.match(/^1(0|9)/)|| year.match(/^200[0-9]/)|| year.match(/^201[0-4]/))) {
+				alert("год неправильный!");		
+			} else date_ok = true;
+			
+		}
+		else alert("Некорректная дата.");
+		if(date_ok){
+		
+			date = Number(date);
+			month = Number(month);
+			year = Number(year);
+			
+			dat = new Date();
+			
+			t_sec = dat.valueOf()
+			var dat2 = new Date(year, (month-1), date, hour, min, sec);
+			sec = dat2.valueOf()		
+			sec = t_sec - sec;
+
+			var week = Math.floor( (((sec/1000)/3600)/24)/7);
+			
+			var r = document.getElementById("result2");
+						
+			var str = "<table>";
+			var n = (100 * 365) / 7;
+			var k = 0;
+			for(var j=0; j< (n/87); j++){
+				 str+= "<tr><td>";
+				for (var i = 0; i < 87; i++ ){					
+					week-=1;
+					var l = Math.floor((k*7)/365);
+					if (week > 0) str += "<div class='week_live' onmouseover='tip(this);' onmouseout='tipout(this)'> <span class='tip1' style='visibility: hidden'>"  + l + "</span> </div>";		
+					else str += "<div class='week' onmouseover='tip(this);' onmouseout='tipout(this)'> <span class='tip1' style='visibility: hidden'> " + l + " </span> </div>";	
+					k++;
+				}				
+				str += "</td></tr>";				
+			}
+			
+			r.innerHTML = str;	
+			
+		}
+	}	
+	
+	function tip(element){
+		$(element).children().css("visibility", "inherit");;				
+	}
+	function tipout(element){
+		$(element).children().css("visibility", "hidden");;				
+	}
+</script>
+
+</head>
+<body>
+<div style="text-align:center">
+<input type="text" id="text1" value="ДД.ММ.ГГГГ" />
+<input type="button" value="Расчитать ..." onclick="func2()">
+</div>
+<br />
+<div id="result1"></div>
+<br />
+<div id="result2"></div>
+<!--
+<table>
+	<tr>
+		<td> <div class='week' onmouseover="tip(this);" onmouseout="tipout(this)"> <span class="tip1" style="visibility: hidden"> 1990 </span> </div> <div class='week'> <span style="visibility:hidden"> 1990 </span> </div> </td>
+	
+	</tr>
+</table>
+-->
+</body>
+</html>
