@@ -1,0 +1,51 @@
+/* style */
+
+body{
+	background-color: white;
+    font: 85.5% sans-serif;	
+    margin-top: 50px;
+    font-family: PlayRegular, Arial, Helvetica, sans-serif;
+    color: #336699;
+	}
+
+	.demoHeaders {
+		margin-top: 3em;
+        font-weight: bold;
+	}
+
+body{	
+}
+.danger {
+    color: red;
+    
+}
+table.main_table td.td1{
+    width: 180px;
+}
+table.main_table td.td1:hover{
+    font-weight: bold;
+    cursor: pointer;    
+}
+
+table.table_hidden{
+    /*visibility: hidden;*/
+}
+table.table_hidden td{
+    width: 160px;
+}
+
+table.table_load tr{
+    border-bottom: 1px solid #CACAD4;    
+    }
+
+table.table_load td{
+    width: 180px;
+    padding: 5px;
+}
+a, a:visited{
+    color: #336699;
+}
+a:hover{
+    color: #009933;
+}
+
